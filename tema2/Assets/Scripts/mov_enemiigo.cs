@@ -2,17 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class mov_enemiigo : MonoBehaviour
+public class EnemigoMovimiento : MonoBehaviour
 {
-    public class EnemyMovement : MonoBehaviour
-    {
-        public float speed = 5f; // Velocidad de movimiento del enemigo
-        public Vector3 targetPosition; // La posición a la que se moverá el enemigo
+    public float speed = 5f; // Velocidad de movimiento
+    public float distance = 5f; // Distancia a recorrer
 
-        void Update()
+    private Vector3 initialPosition; // Posición inicial del personaje
+    private Vector3 targetPosition; // Posición objetivo hacia donde se moverá
+
+    private SpriteRenderer spriteRenderer; // Referencia al componente SpriteRenderer para girar el sprite
+
+    private void Start()
+    {
+        initialPosition = transform.position; // Guarda la posición inicial del personaje
+        targetPosition = initialPosition + Vector3.right * distance; // Calcula la posición objetivo
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Obtiene el componente SpriteRenderer
+    }
+
+    private void Update()
+    {
+        // Calcula la dirección del movimiento
+        Vector3 direction = (targetPosition - transform.position).normalized;
+
+        // Mueve el personaje en la dirección calculada
+        transform.Translate(direction * speed * Time.deltaTime);
+
+        // Gira el sprite del personaje
+        if (direction.x > 0)
+            spriteRenderer.flipX = false; // No gira si se mueve hacia la derecha
+        else if (direction.x < 0)
+            spriteRenderer.flipX = true; // Gira si se mueve hacia la izquierda
+
+        // Verifica si el personaje ha llegado a la posición objetivo
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
-            // Mover el enemigo hacia el objetivo a una velocidad constante
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            // Cambia la posición objetivo
+            if (targetPosition == initialPosition)
+                targetPosition = initialPosition + Vector3.right * distance;
+            else
+                targetPosition = initialPosition;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D colision)
+    {
+        // Verificar si el enemigo ha tocado al jugador
+        if (colision.gameObject.CompareTag("Player"))
+        {
+            // Destruir al jugador
+            Destroy(colision.gameObject);
         }
     }
 }
+
