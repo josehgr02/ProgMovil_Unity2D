@@ -54,6 +54,7 @@ public class CharacterController : MonoBehaviour
 
     private void Saltar()
     {
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (enSuelo || saltosRestantes > 0) // Si está en el suelo o le quedan saltos
