@@ -24,6 +24,8 @@ public class CharacterController : MonoBehaviour
     private Animator animator;
 
 
+    private AudioSource audioSource;
+    public AudioClip jumpClip;
 
 
     private void Start()
@@ -31,6 +33,7 @@ public class CharacterController : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         boxCollider2D= GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -65,6 +68,8 @@ public class CharacterController : MonoBehaviour
                 }
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f); // Detiene la velocidad vertical actual
                 rigidbody2D.AddForce(Vector2.up * velocidadSalto, ForceMode2D.Impulse);
+                audioSource.PlayOneShot(jumpClip);
+
             }
         }
     }
