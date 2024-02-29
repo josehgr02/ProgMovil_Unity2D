@@ -10,6 +10,7 @@ public class CharacterController : MonoBehaviour
     public bool mirandoDerecha;
     public float velocidadSalto;
     public int saltosRestantes = 1;
+   
 
 
     //

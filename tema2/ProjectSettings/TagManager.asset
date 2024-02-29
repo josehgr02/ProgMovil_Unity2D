@@ -12,6 +12,8 @@ TagManager:
   - vidamedia
   - vidavacia
   - corazon
+  - TripleCoin
+  - scoreText
   layers:
   - Default
   - TransparentFX

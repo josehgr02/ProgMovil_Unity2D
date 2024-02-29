@@ -16,6 +16,11 @@ public class Conseguibles : MonoBehaviour
             CoinCollector.AddPoints(5);
             Destroy(collision.gameObject);
         }
+        else if (collision.collider.CompareTag("TripleCoin"))
+        {
+            CoinCollector.AddPoints(10);
+            Destroy(collision.gameObject);
+        }
         else if (collision.collider.CompareTag("Fin"))
         {
             FinDePartida.EndGame();
