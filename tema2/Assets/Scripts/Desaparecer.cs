@@ -9,7 +9,8 @@ public class Desaparecer : MonoBehaviour
         if (colision.gameObject.CompareTag("Player")) // Verifica si el objeto que colisiona es el jugador
         {
             // Destruye el objeto
-            Destroy(colision.gameObject); // Destruye este objeto
+            Destroy(colision.gameObject);// Destruye este objeto
+          
         }
     }
 
