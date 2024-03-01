@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,8 @@ public class CoinCollector : MonoBehaviour
 {
     public static int totalCoins = 0;
     public static int score = 0;
-    public Text scoreText; // Ahora es un campo público para vincular en el Inspector
+    public TMP_Text scoreText; // Ahora es un campo público para vincular en el Inspector
+    public TMP_Text notificationText; // Nuevo campo para mostrar notificaciones
 
     void Start()
     {
@@ -13,6 +15,10 @@ public class CoinCollector : MonoBehaviour
         if (scoreText == null)
         {
             Debug.LogError("El campo de texto para la puntuación no está asignado en el Inspector.");
+        }
+        if (notificationText == null)
+        {
+            Debug.LogError("El campo de texto para las notificaciones no está asignado en el Inspector.");
         }
     }
 
@@ -30,6 +36,7 @@ public class CoinCollector : MonoBehaviour
         Debug.Log("Puntos: " + score);
 
         UpdateScoreText(); // Llama al método para actualizar el texto UI
+        ShowNotification("¡Has ganado " + points + " puntos!");
     }
 
     // Método para actualizar el texto UI de la puntuación
@@ -37,7 +44,26 @@ public class CoinCollector : MonoBehaviour
     {
         if (instance != null && instance.scoreText != null)
         {
-            instance.scoreText.text = "Puntuación: " + score;
+            instance.scoreText.text = "Puntos: " + score;
+        }
+    }
+
+    // Método para mostrar notificaciones
+    private static void ShowNotification(string message)
+    {
+        if (instance != null && instance.notificationText != null)
+        {
+            instance.notificationText.text = message;
+            instance.Invoke("ClearNotification", 2f); // Borra la notificación después de 2 segundos
+        }
+    }
+
+    // Método para borrar la notificación
+    private void ClearNotification()
+    {
+        if (notificationText != null)
+        {
+            notificationText.text = "";
         }
     }
 

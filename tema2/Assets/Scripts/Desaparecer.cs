@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Desaparecer : MonoBehaviour
 {
+    public GameObject Heart;
     private void OnCollisionEnter2D(Collision2D colision)
     {
         if (colision.gameObject.CompareTag("Player")) // Verifica si el objeto que colisiona es el jugador
         {
             // Destruye el objeto
             Destroy(colision.gameObject);// Destruye este objeto
+            Destroy(Heart.gameObject);
+
           
         }
     }

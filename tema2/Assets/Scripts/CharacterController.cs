@@ -10,7 +10,7 @@ public class CharacterController : MonoBehaviour
     public bool mirandoDerecha;
     public float velocidadSalto;
     public int saltosRestantes = 1;
-   
+
 
 
     //
@@ -43,6 +43,8 @@ public class CharacterController : MonoBehaviour
         ProcesoMovimiento();
         Saltar();
         enSuelo = ComprobarSuelo();
+
+    
     }
 
 
